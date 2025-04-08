@@ -6,7 +6,7 @@
 # splits it by chapters (if available), and converts the audio to MP3 format using yt-dlp.
 
 # Define the video URL (replace with your Vimeo video URL)
-VIDEO_URL="https://player.vimeo.com/video/798208660?h=4babf25e9c&badge=0&autopause=0&player_id=0&app_id=58479"
+VIDEO_URL="https://www.youtube.com/watch?v=w3r2J4-QpIg"
 
 # Define the base output directory in the Downloads folder
 OUTPUT_DIR="$HOME/Downloads/%(title)s"
