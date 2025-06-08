@@ -1,9 +1,36 @@
 #!/bin/bash
-# chmod +x DownloadAudio.sh
-# ./DownloadAudio.sh
 
-# This script downloads the best audio from a video (YouTube, Vimeo, etc.),
-# splits it by chapters (if available), and converts the audio to MP3 format using yt-dlp.
+# ========================================
+# YouTube/Vimeo Audio Downloader with Chapter Splitting
+# ========================================
+# 
+# Description:
+#   Downloads the best quality audio from YouTube, Vimeo, and other supported platforms.
+#   Automatically detects and splits videos by chapters if available, otherwise downloads
+#   the entire video as a single audio file. Converts all audio to MP3 format.
+#
+# Dependencies:
+#   - yt-dlp (pip install yt-dlp)
+#   - FFmpeg (for audio conversion)
+#
+# Usage:
+#   1. Edit VIDEO_URL variable below with your target URL
+#   2. chmod +x DownloadAudio.sh
+#   3. ./DownloadAudio.sh
+#
+# Technology:
+#   - yt-dlp for video/audio extraction
+#   - FFmpeg for audio format conversion
+#   - Bash scripting for automation and fallback logic
+#   - Chapter detection and splitting
+#
+# Features:
+#   - Automatic chapter detection and splitting
+#   - Fallback to full audio if no chapters found
+#   - MP3 conversion with best available quality
+#   - Organized file naming with chapter numbers and titles
+#
+# ========================================
 
 # Define the video URL (replace with your Vimeo video URL)
 VIDEO_URL="https://www.youtube.com/watch?v=w3r2J4-QpIg"
