@@ -66,6 +66,25 @@ A curated collection of utility scripts for media conversion, content organizati
 - **Features**: Hierarchical structure, overview generation, Obsidian integration
 - **Usage**: Configure VAULT_PATH, then run `./generate_html_notes.sh`
 
+#### `spotify_to_apple_music.py`
+**Purpose**: Process Spotify streaming history and generate play count statistics
+- **Technology**: Python, CSV processing, JSON parsing
+- **Use Case**: Analyzing music listening habits and transferring to Apple Music
+- **Features**: Track filtering, play count aggregation, CSV export
+- **Usage**: Place Spotify JSON files in `data/` directory, then run `python spotify_to_apple_music.py`
+
+### 🎵 Music Library Management
+
+#### Spotify to Apple Music Transfer
+**Purpose**: Transfer Spotify play counts to Apple Music
+- **Technology**: Python, JXA (JavaScript for Automation)
+- **Use Case**: Recreating Spotify listening history in Apple Music
+- **Features**: Play count analysis, interactive Apple Music integration
+- **Components**:
+  - `spotify_to_apple_music.py`: Main script to process Spotify data
+  - `spotify_to_apple/update_apple_music_plays.js`: JXA script to update Apple Music
+  - Supporting utilities and documentation in `spotify_to_apple/` folder
+
 ### 🗂️ File Management & Organization
 
 #### `rename_comics.sh`
@@ -120,6 +139,7 @@ All scripts include:
 | `books_project.py` | Pandas | `pip install pandas` |
 | `generate_html_notes.sh` | None (bash built-ins) | - |
 | `rename_comics.sh` | None (sed, mv) | - |
+| `spotify_to_apple_music.py` | Python 3.6+ | - |
 
 ## 💡 Use Cases & Workflows
 
@@ -136,6 +156,7 @@ All scripts include:
 ### 🗃️ Content Organization
 - Comic collections → Filename cleanup → Organized library
 - Video downloads → Quality optimization → Storage efficiency
+- Spotify streaming history → Play count analysis → Apple Music library enhancement
 
 ## 🔧 Customization
 
