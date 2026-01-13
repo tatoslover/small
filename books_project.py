@@ -3,7 +3,7 @@
 # ========================================
 # Book Collection to Obsidian Notes Generator
 # ========================================
-# 
+#
 # Description:
 #   Converts a CSV file containing book collection data into individual Markdown files
 #   for Obsidian vault. Each book gets its own note with YAML front matter and structured
@@ -35,27 +35,14 @@
 #
 # ========================================
 
-import pandas as pd
-import os
-import re
-import sys
 
 # Path to your downloaded CSV file and target folder
 books = "/Users/samuellove/Library/Mobile Documents/com~apple~Numbers/Documents/Books.csv"
 obsidian_books = "/Users/samuellove/Library/Mobile Documents/iCloud~md~obsidian/Documents/Obsidian/Books"
 
-# Validate CSV file exists
-if not os.path.exists(books):
-    print(f"❌ Error: CSV file not found at {books}")
-    print("Please check the file path and ensure the Books.csv file exists.")
     sys.exit(1)
 
-# Validate output directory exists or create it
-try:
-    if not os.path.exists(obsidian_books):
-        os.makedirs(obsidian_books, exist_ok=True)
-        print(f"📁 Created output directory: {obsidian_books}")
-except Exception as e:
+
     print(f"❌ Error creating output directory: {e}")
     sys.exit(1)
 
@@ -128,12 +115,12 @@ for index, row in df.iterrows():  # Use df.head(2) to limit to first 2 rows
         genre = str(row.get('Genre', 'Unknown')).strip()
         years_read = str(row.get('Year Read', '')).strip()
         rating = str(row.get('Rating', '')).strip()
-        
+
         # Skip rows with empty titles
         if not title or title.lower() == 'nan':
             print(f"⚠️  Skipping row {index + 1}: No title provided")
             continue
-            
+
         file_content = template.format(
             title=title,
             series=series,
@@ -143,26 +130,12 @@ for index, row in df.iterrows():  # Use df.head(2) to limit to first 2 rows
             rating=rating
         )
 
-        # Define file name and path
-        file_name = f"{sanitize_filename(title)}.md"
-        file_path = os.path.join(obsidian_books, file_name)
-        
-        # Handle duplicate filenames
-        counter = 1
-        original_path = file_path
-        while os.path.exists(file_path):
-            name, ext = os.path.splitext(original_path)
-            file_path = f"{name}_{counter}{ext}"
-            counter += 1
+
 
         # Write file content to new file
         with open(file_path, 'w', encoding='utf-8') as file:
             file.write(file_content)
 
-        success_count += 1
-        print(f"✅ Created: {os.path.basename(file_path)}")
-        
-    except Exception as e:
         error_count += 1
         print(f"❌ Error processing row {index + 1} ('{title}'): {e}")
 

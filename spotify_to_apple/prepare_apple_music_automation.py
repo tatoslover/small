@@ -10,10 +10,6 @@ Usage:
                                              [--limit TRACK_LIMIT] [--max-plays MAX_PLAYS]
 """
 
-import argparse
-import csv
-import os
-from collections import defaultdict
 
 def parse_args():
     """Parse command line arguments."""
@@ -31,19 +27,7 @@ def parse_args():
     return parser.parse_args()
 
 def read_csv(file_path):
-    """Read the input CSV file and return the data."""
-    # Check if path is absolute or relative
-    if not os.path.isabs(file_path) and not file_path.startswith('./'):
-        # If it's a simple filename, look in the current directory
-        if os.path.exists(file_path):
-            pass  # File exists in current directory
-        # Then check if it exists in the same directory as this script
-        elif os.path.exists(os.path.join(os.path.dirname(__file__), file_path)):
-            file_path = os.path.join(os.path.dirname(__file__), file_path)
 
-    if not os.path.exists(file_path):
-        print(f"Error: Input file '{file_path}' not found")
-        return None
 
     tracks = []
     try:

@@ -3,7 +3,7 @@
 # ========================================
 # Safari Bookmarks to Markdown Converter
 # ========================================
-# 
+#
 # Description:
 #   Converts exported Safari bookmarks HTML file into individual Markdown files
 #   with YAML front matter. Each bookmark becomes a separate .md file organized
@@ -29,22 +29,14 @@
 #   Creates a "Bookmarks" directory with individual .md files for each bookmark
 #   containing title, URL, and category metadata.
 #
-# ========================================
 
-import os
-from bs4 import BeautifulSoup
-import re
 
 # Function to sanitize file names
 def sanitize_filename(filename):
     # Remove invalid characters for file names (like slashes, colons, etc.)
     return re.sub(r'[\\/*?:"<>|]', "", filename)
 
-# Check if Safari bookmarks file exists
-bookmarks_file = "Safari Bookmarks.html"
-if not os.path.exists(bookmarks_file):
-    print(f"❌ Error: {bookmarks_file} not found in current directory")
-    print("Please export your Safari bookmarks as HTML and place it here.")
+
     exit(1)
 
 # Open and read the exported Safari bookmarks HTML file
@@ -59,12 +51,7 @@ except Exception as e:
 soup = BeautifulSoup(html, "html.parser")
 
 # Directory where the markdown files will be saved
-output_directory = "Bookmarks"
-try:
-    if not os.path.exists(output_directory):
-        os.makedirs(output_directory)
-        print(f"📁 Created output directory: {output_directory}")
-except Exception as e:
+
     print(f"❌ Error creating output directory: {e}")
     exit(1)
 
@@ -81,28 +68,18 @@ for element in soup.find_all(["h1", "h2", "h3", "h4", "h5", "h6", "a"]):
         try:
             title = element.text.strip() if element.text else "Untitled"
             url = element.get("href", "")
-            
+
             # Skip bookmarks without URLs
             if not url:
                 print(f"⚠️  Skipping bookmark without URL: {title}")
                 continue
-            
+
             # Sanitize the title to create a valid file name
             file_name = sanitize_filename(f"{title}.md")
-            
+
             # Handle duplicate or empty filenames
             if not file_name or file_name == ".md":
-                file_name = f"bookmark_{bookmark_count}.md"
-            
-            file_path = os.path.join(output_directory, file_name)
-            
-            # Handle duplicate filenames
-            counter = 1
-            original_path = file_path
-            while os.path.exists(file_path):
-                name, ext = os.path.splitext(original_path)
-                file_path = f"{name}_{counter}{ext}"
-                counter += 1
+
 
             # Prepare the content for the markdown file with YAML front matter
             yaml_content = f"""---
@@ -117,10 +94,6 @@ Category: "{current_category.replace('"', '\\"')}"
             with open(file_path, "w", encoding="utf-8") as file:
                 file.write(yaml_content)
 
-            bookmark_count += 1
-            print(f"✅ Created: {os.path.basename(file_path)}")
-            
-        except Exception as e:
             error_count += 1
             print(f"❌ Error processing bookmark '{title}': {e}")
 

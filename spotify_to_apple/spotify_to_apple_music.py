@@ -12,11 +12,7 @@ The script will:
 2. Count plays for each track
 3. Generate a CSV report with play count data
 4. Create a top tracks summary report
-"""
 
-import os
-import json
-import csv
 import glob
 from collections import defaultdict
 
@@ -37,11 +33,7 @@ class SpotifyPlayCounter:
         # Current folder for all files
         self.support_folder = "."
 
-    def find_history_files(self):
-        """Find all Spotify streaming history JSON files in the data directory."""
-        pattern = os.path.join(self.data_dir, "Streaming_History_*.json")
-        self.history_files = glob.glob(pattern)
-        if not self.history_files:
+
             print(f"No streaming history files found in {self.data_dir}")
             return False
         print(f"Found {len(self.history_files)} streaming history files.")
@@ -52,10 +44,6 @@ class SpotifyPlayCounter:
         total_tracks = 0
         valid_plays = 0
 
-        for file_path in self.history_files:
-            print(f"Processing {os.path.basename(file_path)}...")
-            try:
-                with open(file_path, 'r', encoding='utf-8') as file:
                     data = json.load(file)
 
                     for entry in data:
@@ -111,10 +99,6 @@ class SpotifyPlayCounter:
         # Sort tracks by play count (descending)
         sorted_tracks = sorted(self.track_plays.items(), key=lambda x: x[1], reverse=True)
 
-        # Create the output path in the support folder
-        output_path = os.path.join(self.support_folder, output_file)
-
-        with open(output_path, 'w', newline='', encoding='utf-8') as csvfile:
             fieldnames = ['Play Count', 'Track', 'Artist', 'Album', 'Spotify URI']
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
@@ -145,10 +129,6 @@ class SpotifyPlayCounter:
             print("No play data available. Run process_history_files first.")
             return
 
-        # Create the output path in the support folder
-        output_path = os.path.join(self.support_folder, output_file)
-
-        with open(output_path, 'w', encoding='utf-8') as file:
             file.write(f"TOP {count} TRACKS BY PLAY COUNT\n")
             file.write("=" * (count + 22) + "\n\n")
 
@@ -170,12 +150,6 @@ class SpotifyPlayCounter:
         """Run the Spotify play count processor."""
         print("Starting Spotify play count processor...")
 
-        # Ensure support folder exists
-        if not os.path.exists(self.support_folder):
-            try:
-                os.makedirs(self.support_folder)
-                print(f"Created support folder: {self.support_folder}")
-            except Exception as e:
                 print(f"Warning: Could not create support folder: {e}")
 
         if self.find_history_files():
