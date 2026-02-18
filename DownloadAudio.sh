@@ -3,7 +3,7 @@
 # ========================================
 # YouTube/Vimeo Audio Downloader with Chapter Splitting
 # ========================================
-# 
+#
 # Description:
 #   Downloads the best quality audio from YouTube, Vimeo, and other supported platforms.
 #   Automatically detects and splits videos by chapters if available, otherwise downloads
@@ -32,8 +32,8 @@
 #
 # ========================================
 
-# Define the video URL (replace with your Vimeo video URL)
-VIDEO_URL="https://www.youtube.com/watch?v=w3r2J4-QpIg"
+# Define the video URL
+VIDEO_URL="https://www.youtube.com/watch?v=g-3YG5XfgxA"
 
 # Define the base output directory in the Downloads folder
 OUTPUT_DIR="$HOME/Downloads/%(title)s"
